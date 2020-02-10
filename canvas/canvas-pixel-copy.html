@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="333" height="500" style="border:1px solid #ccc">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<canvas id="dessin2" width="100" height="100" style="border:1px solid #ccc">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+  var moncanvas = document.getElementById('dessin');
+  var moncanvas2 = document.getElementById('dessin2');
+  var ctx = moncanvas.getContext('2d');
+  var ctx2 = moncanvas2.getContext('2d');
+  
+  var img = new Image();
+  img.src = 'img/photo.jpg';
+  img.onload = function() {
+    // Dessin de l'image
+    ctx.drawImage(img,0,0);
+    pixelcopy(0,0);
+  }
+  
+  function pixelcopy(x,y) {
+    // Récupération de pixel (ne fonctionne si la source est le même domaine pour éviter XSS, et ne fonctionne pas en local non plus)
+    var imageData = ctx.getImageData(x,y,100,100);
+	
+	// Modification de pixels ?
+    for(i=0;i<imageData.data.length;i+=4) {
+      imageData.data[i]; // R
+      imageData.data[i+1]; // V
+      imageData.data[i+2]; // B
+      imageData.data[i+3]; // A
+    }
+	
+	// Remplacement dans le canvas destination
+    ctx2.putImageData(imageData,0,0);  
+  }
+  
+  moncanvas.onmousemove = function(e) {
+	pixelcopy(e.offsetX,e.offsetY);
+  }
+</script>
+
+</body>
+</html>

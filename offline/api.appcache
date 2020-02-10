@@ -1,0 +1,14 @@
+CACHE MANIFEST
+
+# VERSION 7
+
+CACHE:
+styles.css
+script.js
+api.js
+photos/photo1.jpg
+
+FALLBACK:
+styles.css styles-offline.css
+realtime.php info-offline.html
+photos/ horsligne.png

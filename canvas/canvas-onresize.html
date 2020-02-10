@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+canvas {
+  border:1px solid #ccc;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="600" height="400">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<input type="button" onclick="redim();" value="Redimensionner">
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+function dessiner() {
+  console.log("Dessin!");
+  ctx.lineWidth = 2;
+  ctx.fillStyle = "#444";
+  ctx.fillRect(0, 0, moncanvas.width/2, moncanvas.height/2);
+}
+
+dessiner();
+
+function redim() {
+  moncanvas.width = 400;
+  moncanvas.height = 300;
+}
+
+moncanvas.onresize = function() {
+  console.log("Resize !");
+  dessiner();
+};
+
+//moncanvas.addEventListener("resize",dessiner,true);
+
+</script>
+
+</body>
+</html>

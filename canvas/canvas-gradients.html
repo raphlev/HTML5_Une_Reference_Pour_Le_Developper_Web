@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="610" height="350">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+var degradeLineaire = ctx.createLinearGradient(0, 0, 200, 0);
+degradeLineaire.addColorStop(0,'limegreen');
+degradeLineaire.addColorStop(0.5,'gold');
+degradeLineaire.addColorStop(1,'orange');
+ctx.fillStyle = degradeLineaire;
+ctx.fillRect(0, 0, 600, 100);
+
+var degradeRadial = ctx.createRadialGradient(300,250,0, 300,250,300);
+degradeRadial.addColorStop(0,'red');
+degradeRadial.addColorStop(0.5,'#fc0');
+degradeRadial.addColorStop(1,'brown');
+ctx.fillStyle = degradeRadial;
+ctx.fillRect(0, 110, 600, 100);
+
+var degradeLineaire2 = ctx.createLinearGradient(0, 0, 500, 500);
+degradeLineaire2.addColorStop(0,'blue');
+degradeLineaire2.addColorStop(0.5,'white');
+degradeLineaire2.addColorStop(1,'red');
+ctx.strokeStyle = degradeLineaire2;
+ctx.lineWidth = 10;
+ctx.strokeRect(5, 225, 590, 100);
+
+</script>
+
+</body>
+</html>

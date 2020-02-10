@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Template en action</title>
+  <style>
+  .l { background: rebeccapurple; color: white; }
+  td { text-align: center;}
+  </style>
+</head>
+<body>
+
+<table id="container">
+  <tr><th>Lettre</th><th>Code</th></tr>
+</table>
+
+<template class="lettre">
+  <tr>
+    <td class="l"></td>
+    <td class="c"></td>
+  </tr>
+</template>
+
+<script> 
+var code = 65;
+var tpl = document.querySelector('template.lettre');
+var root = document.querySelector('#container tbody');
+for(var i = code; i <= code+25; i++) {
+  var clone = tpl.content.cloneNode(true);
+  root.appendChild(clone);
+  var tr = root.querySelector('tr:last-child');
+  tr.getElementsByClassName('l')[0].textContent = String.fromCharCode(i);
+  tr.getElementsByClassName('c')[0].textContent = i;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Gamepad</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	body {
+	  text-align: center;
+	  background: radial-gradient(ellipse at center, #24e2c5 0%,#1fb6c7 100%);
+	}
+	.sourcil {
+	  transition:all 0.2s ease;
+	}
+	</style>
+</head>
+<body>
+
+	<!-- Image SVG -->
+  <svg width="600" height="600" id="svg">
+    <g transform="translate(200,200)" >
+      <ellipse cx="0" cy="0" rx="80" ry="100" style="fill:white;fill-opacity:1;stroke:black;stroke-width:16;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="blanc1" />
+      <circle cx="0" cy="0" r="25" style="fill:black;fill-opacity:1;stroke:black;stroke-width:16;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="oeil1" />
+    </g>
+    <g transform="translate(400,200)" >
+      <ellipse cx="0" cy="0" rx="80" ry="100" style="fill:white;fill-opacity:1;stroke:black;stroke-width:16;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="blanc2" />
+      <circle cx="0" cy="0" r="25" style="fill:black;fill-opacity:1;stroke:black;stroke-width:16;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="oeil2" />
+    </g>
+		<g transform="translate(120,30)" >
+			<rect width="150" height="20" id="sourcil1" class="sourcil">
+		</g>
+		<g transform="translate(320,30)" >
+			<rect width="150" height="20" id="sourcil2" class="sourcil">
+		</g>
+  </svg>
+
+  <script src="gamepad-svg.js"></script>
+
+</body>
+</html>

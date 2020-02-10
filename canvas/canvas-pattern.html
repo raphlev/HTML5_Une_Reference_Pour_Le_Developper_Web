@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+  body {
+    padding: 0;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="480" height="320">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+// Couleur de fond
+ctx.fillStyle = '#0064b8';
+ctx.fillRect(0,0,moncanvas.width,moncanvas.height);
+
+// Collection d'images
+var sources = {
+  fond:'img/fond.png',
+  sol:'img/sol.png',
+  tuyau1:'img/tuyau1.png',
+  tuyau2:'img/tuyau2.png',
+  brique:'img/brique.png',
+  sprites:'img/sprites.png'
+};
+
+var images = {};
+var images_chargees = 0;
+var nb_images = 0;
+
+// Comptage des images
+for(var img in sources) nb_images++;
+
+// Préchargement des images
+for(var img in sources) {
+  // img contient la clé, sources[img] l'url
+  images[img] = new Image();
+  images[img].src = sources[img];
+  images[img].onload = function(e) {
+    images_chargees++;
+    if(images_chargees>=nb_images) dessiner();
+  }
+}
+
+// Dessin avec les images chargées
+function dessiner() {
+
+  ctx.drawImage(images.fond,0,0);
+
+  ctx.save();
+
+  // Sol
+  ctx.translate(0,moncanvas.height-images.sol.height);
+  var motif_sol = ctx.createPattern(images.sol,"repeat-x");
+  ctx.fillStyle = motif_sol;
+  ctx.fillRect(0, 0, moncanvas.width,48);
+
+  // Tuyau
+  ctx.translate(304,-64);
+  var motif_tuyau1 = ctx.createPattern(images.tuyau1,"repeat-y");
+  ctx.fillStyle = motif_tuyau1;
+  ctx.fillRect(0, 16, 32, 96);
+
+  ctx.fillStyle = ctx.createPattern(images.tuyau2,"no-repeat");
+  ctx.fillRect(0, 0, 32, 16);
+
+  // Briques
+  ctx.translate(-224,-64);
+  ctx.fillStyle = ctx.createPattern(images.brique,"repeat");
+  ctx.fillRect(64, 64, 96, 32);
+
+  ctx.restore();
+
+  // Sprites...
+
+  // Premier sprite (champignon)
+  var posx = Math.random()*150+100;
+  var posy = moncanvas.height-images.sol.height-images.sprites.height;
+  ctx.drawImage(images.sprites,0,0,16,16,posx,posy,16,16);
+
+  // Deuxième sprite (brique question)
+  var posx = 192;
+  var posy = moncanvas.height-images.sol.height-images.sprites.height-120;
+  ctx.drawImage(images.sprites,16,0,16,16,posx,posy,16,16);
+
+  // Troisième sprite (monstre)
+  var posx = Math.random()*100+350;
+  var posy = moncanvas.height-images.sol.height-images.sprites.height;
+  ctx.drawImage(images.sprites,32,0,16,16,posx,posy,16,16);
+
+} // Fin de la fonction dessiner
+
+</script>
+
+</body>
+</html>

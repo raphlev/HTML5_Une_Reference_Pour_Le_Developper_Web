@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+canvas {
+	border:1px solid #ccc;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="200" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+// Largeur de ligne
+ctx.lineWidth = 5;
+
+// --- Lignes (toit et murs)
+
+// Couleur de ligne
+ctx.strokeStyle = "red";
+
+// Ouverture du chemin
+ctx.beginPath();
+
+// Lignes (toit)
+ctx.moveTo(40, 80);
+ctx.lineTo(80, 40);
+ctx.lineTo(120, 80);
+
+// Lignes (murs)
+ctx.moveTo(60, 80);
+ctx.lineTo(60, 120);
+ctx.lineTo(100, 120);
+ctx.lineTo(100, 80);
+
+// --- Rectangle (porte)
+ctx.rect(75,100,10,20);
+
+// Tracé
+ctx.stroke();
+
+// Nouveau style
+ctx.strokeStyle = "turquoise";
+
+// --- Courbes de Bézier
+
+// Nouveau chemin
+ctx.beginPath();
+
+ctx.moveTo(20, 150);
+ctx.bezierCurveTo(80,130,80,180,140,150);
+
+ctx.moveTo(20, 170);
+ctx.bezierCurveTo(80,150,80,200,140,170);
+
+// Tracé
+ctx.stroke();
+
+// --- Arc (soleil)
+ctx.fillStyle = "yellow";
+ctx.strokeStyle = "orange";
+
+// Nouveau chemin
+ctx.beginPath();
+
+ctx.arc(150,40,30,0,Math.PI*2,true);
+
+// Tracé
+ctx.fill();
+ctx.stroke();
+
+// --- Courbe de Bézier quadratique (sourire)
+
+// Nouveau chemin
+ctx.beginPath();
+
+ctx.strokeStyle = "orange";
+
+ctx.moveTo(130, 40);
+ctx.quadraticCurveTo(150,70,170,40);
+
+// Tracé
+ctx.stroke();
+
+// --- ArcTo (arbre)
+
+ctx.beginPath();
+ctx.strokeStyle = "LimeGreen";
+
+ctx.moveTo(20,120);
+ctx.arcTo(20,30,160,120,20);
+
+// Tracé
+ctx.stroke();
+
+</script>
+
+</body>
+</html>

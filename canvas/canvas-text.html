@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="600" height="140">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<p>
+	<output id="mesure"></output>
+</p>
+
+<script>
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+ctx.strokeStyle = "olivedrab";
+ctx.fillStyle = "#c00";
+
+// Tracé du texte 1
+ctx.font = '30pt Comic Sans MS';
+ctx.textAlign = "start";
+ctx.textBaseline = "top";
+// Première ligne
+ctx.strokeText("Ton thé t'a-t-il",0,0);
+// Deuxième ligne
+ctx.font = '50pt Comic Sans MS';
+ctx.lineWidth = 3;
+ctx.strokeText("ôté ta toux ?",0,25);
+
+// Tracé du texte 2
+ctx.font = '20pt Georgia';
+ctx.textAlign = "right";
+ctx.fillText("...disait la tortue au tatou",350,110);
+
+// Mesure
+document.getElementById('mesure').innerHTML = "Le texte <q>HTML5</q> nécessiterait "+ctx.measureText("HTML5").width+" pixels de large avec la police courante";
+
+</script>
+
+</body>
+</html>

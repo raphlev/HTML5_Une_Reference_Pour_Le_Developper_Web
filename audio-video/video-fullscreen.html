@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Video</title>
+<meta charset="utf-8">
+<style>
+.videofullscreen {
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0;
+  left:0;
+}
+</style>
+</head>
+<body>
+
+<video id="mavideo" width="640" height="369" controls>
+  <source src="sintel_trailer-720p.mp4" type="video/mp4">
+  <p>Télécharger la vidéo <a href="sintel_trailer-720p.mp4">MP4</a></p>
+</video>
+
+<p>
+  <button type="button" id="btnplay">Play</button>
+  <button type="button" id="btnfullscreen">Fullscreen</button>
+</p>
+
+<p><small>Vidéo : Bande-annonce de <a href="https://durian.blender.org/">Sintel</a> sous licence Creative Commons Attribution 3.0 (Blender Foundation)</small></p>
+
+<script>
+var vid1 = document.getElementById("mavideo");
+document.getElementById("btnplay").onclick = function() {
+  vid1.play();
+};
+document.getElementById("btnfullscreen").onclick = function() {
+  if('requestFullScreen' in vid1) {
+    vid1.requestFullScreen();
+  } else if('webkitEnterFullScreen' in vid1) {
+    vid1.webkitEnterFullScreen();
+  } else {
+    vid1.className='videofullscreen';
+  }
+}
+</script>
+
+</body>
+</html>

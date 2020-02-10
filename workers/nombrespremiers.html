@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travailleurs, travailleuses...</title>
+  </head>
+  <body>
+    <p id="resultat"></p>
+  </body>
+  <script>
+  var travailleur = new Worker('nombrespremiers.js');
+  travailleur.onmessage = function(e) {
+    document.getElementById("resultat").textContent += e.data+' ';
+  };
+  </script>
+</html>

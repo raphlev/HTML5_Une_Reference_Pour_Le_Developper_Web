@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+canvas {
+  border:1px solid #ccc;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="333" height="500"></canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+var img = new Image();
+img.src = 'img/photo.jpg';
+
+img.onload = function() {
+  ctx.save();
+  // Cercle de coordoonnées 100,100
+  ctx.beginPath();
+  ctx.arc(100, 100, 150, 0, Math.PI * 2, false);
+  ctx.closePath();
+  // Clip sur le chemin courant
+  ctx.clip();
+  // Dessin de l'image
+  ctx.drawImage(img, 0, 0);
+  ctx.restore();
+}
+
+// Gestionnaire d'événement souris
+moncanvas.onmousemove = function(e) {
+  ctx.save();
+  ctx.beginPath();
+  // Cercle centré sur les coordonnées de la souris
+  ctx.arc(e.offsetX, e.offsetY, 100, 0, Math.PI * 2, false);
+  ctx.closePath();
+  ctx.clip();
+  // Dessin de l'image
+  ctx.drawImage(img, 0, 0);
+  ctx.restore();
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>HTML5 : Canvas</title>
+</head>
+<body>
+
+<canvas id="dessin" width="640" height="466"></canvas>
+
+<script>
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+// Styles généraux
+ctx.strokeStyle = "#000";
+ctx.lineWidth = 1;
+ctx.fillStyle = "#ef2b2d";
+
+// Fond rouge
+ctx.fillRect(0, 0, 640, 466);
+
+// Zones blanches
+ctx.clearRect(174, 0, 117, 466);
+ctx.clearRect(0, 174, 640, 117);
+
+// Zones bleues
+ctx.fillStyle = "#002868";
+ctx.fillRect(204, 0, 58, 466);
+ctx.fillRect(0, 204, 640, 58);
+
+// Contour
+ctx.strokeRect(0, 0, 640, 466);
+
+</script>
+
+</body>
+</html>

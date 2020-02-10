@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Web Messaging</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+<div class="wrap">
+
+<p>Je suis sur www.domaine1.com</p>
+
+<form id="envoi">
+  <p><textarea id="message"></textarea></p>
+  <p><input type="submit" value="Envoyer"></p>
+</form>
+
+<iframe src="http://www.domaine2.com/web-messaging/json-destinataire.html" id="iframe"></iframe>
+
+</div>
+
+<script>
+
+var destination = document.getElementById('iframe').contentWindow;
+
+document.getElementById('envoi').onsubmit = function(e) {
+  var texte = document.getElementById('message').value;
+  var objet = {messagetxt:texte,date:new Date()};
+  var jsondata = JSON.stringify(objet);
+  destination.postMessage(jsondata,"http://www.domaine2.com");
+  e.preventDefault();
+};
+
+</script>
+
+</body>
+</html>

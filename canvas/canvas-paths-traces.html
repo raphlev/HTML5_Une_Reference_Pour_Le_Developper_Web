@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+canvas {
+	border:1px solid #ccc;
+}
+</style>
+</head>
+<body>
+
+<h2>quadraticCurveTo</h2>
+<canvas id="dessin1" width="200" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<h2>bezierCurveTo</h2>
+<canvas id="dessin2" width="200" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<h2>arcTo (pas implémenté ?)</h2>
+<canvas id="dessin3" width="200" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<h2>arc</h2>
+<canvas id="dessin4" width="200" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<h2>rect</h2>
+<canvas id="dessin5" width="200" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas1 = document.getElementById('dessin1');
+var ctx1 = moncanvas1.getContext('2d');
+
+ctx1.strokeStyle = "#6c9f00";
+ctx1.lineWidth = 10;
+ctx1.lineCap = "round";
+
+ctx1.beginPath();
+ctx1.moveTo(20, 100);
+ctx1.quadraticCurveTo(130, 200, 170, 80);
+ctx1.stroke();
+
+ctx1.moveTo(60, 40);
+ctx1.quadraticCurveTo(70, 60, 50, 60);
+ctx1.stroke();
+
+ctx1.moveTo(130, 40);
+ctx1.quadraticCurveTo(120, 55, 130, 60);
+ctx1.stroke();
+
+
+// ----------------------------
+
+var moncanvas2 = document.getElementById('dessin2');
+var ctx2 = moncanvas2.getContext('2d');
+
+ctx2.strokeStyle = "#6c9f00";
+ctx2.lineWidth = 3;
+
+ctx2.beginPath();
+ctx2.moveTo(10, 10);  
+ctx2.bezierCurveTo(150, 50, 50, 150, 190, 190);  
+ctx2.stroke();
+
+// ----------------------------
+
+var moncanvas3 = document.getElementById('dessin3');
+var ctx3 = moncanvas3.getContext('2d');
+
+ctx3.strokeStyle = "green";
+ctx3.lineWidth = 1;
+ctx3.fillStyle = "lime";
+
+ctx3.beginPath();
+ctx3.arcTo(50,50,50,50,20);
+ctx3.closePath();
+ctx3.fill();
+ctx3.stroke();
+
+// ----------------------------
+
+var moncanvas4 = document.getElementById('dessin4');
+var ctx4 = moncanvas4.getContext('2d');
+
+ctx4.strokeStyle = "black";
+ctx4.lineWidth = 1;
+
+ctx4.fillStyle = "#369";
+
+ctx4.beginPath();
+ctx4.arc(50,50,50,50,20,true);
+ctx4.closePath();
+ctx4.fill();
+
+ctx4.fillStyle = "rgba(177,215,0,100);";
+
+/*
+The first is the x position of the origin point (the centre of the circle).
+The second is the y position of the origin point.
+The third is the radius of the circle.
+The forth is the start angle of the circle.
+The fifth is the end angle of the circle.
+And sixth is the direction to draw the arc (true is anti-clockwise, and false is clockwise)
+*/
+
+ctx4.beginPath();  
+ctx4.arc(100, 100, 50, 0, Math.PI*2/3, true);
+ctx4.closePath();  
+ctx4.fill();  
+
+ctx4.fillStyle = "red";
+
+ctx4.beginPath();  
+ctx4.arc(150, 150, 20, 0, Math.PI*1, true);  
+ctx4.closePath();  
+ctx4.fill();  
+
+
+// ----------------------------
+
+var moncanvas5 = document.getElementById('dessin5');
+var ctx5 = moncanvas5.getContext('2d');
+
+ctx5.strokeStyle = "green";
+ctx5.lineWidth = 1;
+ctx5.fillStyle = "lime";
+
+ctx5.beginPath();
+ctx5.rect(50,50,50,50);
+ctx5.rect(100,100,50,50);
+ctx5.closePath();
+ctx5.fill();
+ctx5.stroke();
+
+</script>
+
+</body>
+</html>

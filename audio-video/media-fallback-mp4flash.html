@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Video fallback</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<h1>Video</h1>
+<video id="mavideo" width="720" height="406" poster="bunny.jpg" controls preload="none">
+  <source src="bunny.mp4" type="video/mp4">
+  <object data="jwplayer.swf" width="720" height="406"><param name="flashvars" value="file=bunny.mp4"></object>
+</video>
+
+<p><small>Vidéo : Bande-annonce de <a href="http://www.bigbuckbunny.org">Big Buck Bunny</a> sous licence Creative Commons Attribution 3.0</small></p>
+
+<script>
+
+// Cette fonction supprime tous les nodes <source>
+// et le parent <video> lui-même pour ne conserver
+// que le contenu alternatif
+function fallback(element_video) {
+  video = document.getElementById(element_video);
+  while(video.firstChild) {
+    if(video.firstChild instanceof HTMLSourceElement) {
+      video.removeChild(video.firstChild);
+    } else {
+      video.parentNode.insertBefore(video.firstChild, video);
+    }
+  }
+  video.parentNode.removeChild(video);
+}
+
+var elvideo = document.createElement('video');
+if(!!elvideo.canPlayType) {
+  alert('HTML5 Video semble accepté');
+  if(!elvideo.canPlayType('video/mp4')) {
+    alert('Pas de support video/mp4 : transition vers Flash');
+    fallback('mavideo');
+  }
+} else {
+  fallback('mavideo');
+}
+
+</script>
+
+</body>
+</html>

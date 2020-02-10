@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Web Messaging</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+<p>Je suis sur www.domaine2.com</p>
+
+<ul id="messages"></ul>
+
+<script>
+
+// Gestionnaire d'événement 'message'
+if (typeof window.addEventListener != 'undefined') {  
+  window.addEventListener('message', reception, false);  
+} else if (typeof window.attachEvent != 'undefined') {  
+  window.attachEvent('onmessage', reception);  
+}
+
+// Traitement de l'événement
+function reception(e) {
+  // Vérification de l'origine
+  if(e.origin!=='http://www.domaine1.com') {
+    alert("Mauvaise origine");
+  } else {
+    // Prise en compte du message
+    var li = document.createElement('li');
+    li.textContent = e.origin +' a dit : '+e.data;
+    document.getElementById('messages').appendChild(li);
+  }
+}
+
+</script>
+
+</body>
+</html>

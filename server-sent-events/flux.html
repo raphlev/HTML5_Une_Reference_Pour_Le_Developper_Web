@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : EventSource</title>
+<style>
+p {
+  padding:0.5em;
+  margin:0;
+  font-family:sans-serif;
+}
+.message {
+  background:#F1F1F1;
+  padding:0.5em;
+  border-top:1px solid #ccc;
+}
+.erreur {
+  background:#FF7800;
+  color:white;
+}
+.ok {
+  background:#A9C832;
+  color:white;
+  margin-top:0.5em;
+}
+#maintenant {
+  font-size:1.5em;
+  color:#666;
+}
+</style>
+</head>
+<body>
+
+<p id="maintenant"></p>
+<div id="infos"></div>
+
+<script>
+
+var sse = new EventSource("flux.php");
+
+var date = document.getElementById("infos");
+var maintenant = document.getElementById("maintenant");
+
+sse.onmessage = function(e) {
+  var dt = new Date();
+  dt.setTime(parseInt(e.data)*1000);
+  maintenant.innerHTML = dt.toString();
+  console.log(e); // ou e.data
+  infos.innerHTML += "<p class=\"message\">data: "+e.data+"</p>";
+};
+
+sse.onerror =  function(e) {
+  infos.innerHTML += "<p class=\"erreur\">Fin de connexion à "+e.srcElement.url+"</p>";
+};
+
+sse.onopen = function(e) {
+  infos.innerHTML += "<p class=\"ok\">Connexion ouverte</p>";
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : File API</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <p><strong>File API</strong></p>
+  <input type="file" multiple name="mesfichiers" id="mesfichiers" onchange="analyseFichiers(this.files);">
+  <output id="infos"></output>
+
+</div>
+
+<script>
+function analyseFichiers(fichiers) {
+	if(fichiers) {
+		var infos = document.getElementById('infos');
+		var nombreFichiers = fichiers.length;
+		var tailleTotale = 0;
+		infos.innerHTML = "<p>Il y a <b>"+nombreFichiers+"</b> fichiers</p>";
+		infos.innerHTML += "<ul>";
+		for(i=0;i<fichiers.length;i++){
+			infos.innerHTML += "<li>"+fichiers[i].name+" ("+fichiers[i].type+")</li>";
+			tailleTotale += fichiers[i].size;
+		}
+		infos.innerHTML += "</ul>";
+		infos.innerHTML += "<p>Total : <b>"+Math.round(tailleTotale/1024)+"</b> Kio</p>";
+	}
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin1" width="150" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<canvas id="dessin2" width="150" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<canvas id="dessin3" width="150" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<canvas id="dessin4" width="150" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+function points_de_ref(ctx) {
+	ctx.beginPath();
+	ctx.lineWidth = 2;
+	ctx.strokeStyle = "black";
+	ctx.moveTo(27,27);
+	ctx.lineTo(33,33);
+	ctx.moveTo(27,33);
+	ctx.lineTo(33,27);
+	ctx.moveTo(97,97);
+	ctx.lineTo(103,103);
+	ctx.moveTo(97,103);
+	ctx.lineTo(103,97);
+	ctx.stroke();
+}
+
+var moncanvas1 = document.getElementById('dessin1');
+var ctx1 = moncanvas1.getContext('2d');
+
+ctx1.strokeStyle = "steelblue";
+ctx1.lineWidth = 40;
+ctx1.lineCap = "round";
+
+ctx1.moveTo(30,30);
+ctx1.lineTo(100,100);
+ctx1.stroke();
+
+points_de_ref(ctx1);
+
+// ----------------------------
+
+var moncanvas2 = document.getElementById('dessin2');
+var ctx2 = moncanvas2.getContext('2d');
+
+ctx2.strokeStyle = "steelblue";
+ctx2.lineWidth = 40;
+ctx2.lineCap = "butt";
+
+ctx2.moveTo(30,30);
+ctx2.lineTo(100,100);
+ctx2.stroke();
+
+points_de_ref(ctx2);
+
+// ----------------------------
+
+var moncanvas3 = document.getElementById('dessin3');
+var ctx3 = moncanvas3.getContext('2d');
+
+ctx3.strokeStyle = "steelblue";
+ctx3.lineWidth = 40;
+ctx3.lineCap = "square";
+
+ctx3.moveTo(30,30);
+ctx3.lineTo(100,100);
+ctx3.stroke();
+
+points_de_ref(ctx3);
+
+// ----------------------------
+
+</script>
+
+</body>
+</html>

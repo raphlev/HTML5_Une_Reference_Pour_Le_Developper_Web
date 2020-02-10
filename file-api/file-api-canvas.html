@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : File API</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <p><strong>File API (Canvas)</strong></p>
+  <input type="file" multiple name="mesfichiers" id="mesfichiers" onchange="analyseFichiers(this.files);">
+  <canvas width="400" height="300" id="dessin"></canvas>
+  <input type="button" value="toDataURL" id="canvastodataurl">
+  <input type="button" value="getAsFile" id="canvasgetasfile">
+  <input type="button" value="toBlob" id="canvastoblob">
+
+</div>
+
+<script>
+
+var canvas = document.getElementById('dessin');
+var ctx = canvas.getContext('2d');
+ctx.shadowColor = '#777';
+ctx.shadowOffsetX = 2;
+ctx.shadowOffsetY = 2;
+ctx.shadowBlur = 15;
+
+function analyseFichiers(fichiers) {
+  if(fichiers) {
+    for(i=0;i<fichiers.length;i++){
+
+      if(fichiers[i].type.match('image.*') && (typeof window.FileReader !== 'undefined')) {
+
+        reader = new FileReader();
+
+        reader.onload = function (event) {
+
+          // Création de l'image
+          var img = document.createElement('img');
+          img.src = event.target.result;
+
+          // Insertion aléatoire dans canvas
+          var x = Math.random()*(canvas.width-img.width);
+          var y = Math.random()*(canvas.height-img.height);
+          ctx.drawImage(img,x,y);
+
+        };
+
+        reader.readAsDataURL(fichiers[i]);
+    
+      }
+
+    }
+  }
+}
+
+document.getElementById('canvastodataurl').onclick = function() {
+  if(canvas.toDataURL) {
+    var data = canvas.toDataURL("image/png");
+    console.log(data);
+  } else alert("Fonction non supportée");
+};
+
+document.getElementById('canvasgetasfile').onclick = function() {
+  if(canvas.mozGetAsFile) {
+    var file = canvas.mozGetAsFile("image/png");
+    console.log(file);
+  } else alert("Fonction non supportée");
+};
+
+document.getElementById('canvastoblob').onclick = function() {
+  if(canvas.toBlob) {
+    canvas.toBlob(function(event) {
+      console.log(event);
+    },"image/png");
+    console.log(file);
+  } else alert("Fonction non supportée");
+};
+
+</script>
+
+</body>
+
+</html>

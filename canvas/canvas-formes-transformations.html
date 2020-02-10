@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+h2 {
+  font-family:"Droid sans";
+	color:white;
+	display:inline-block;
+	padding:0.1em 0.5em;
+	background:#666;
+	font-size:18px;
+}
+canvas {
+  display:block;
+}
+</style>
+</head>
+<body>
+
+<h2>scale(2,2)</h2>
+<canvas id="dessin1" width="640" height="120">
+</canvas>
+
+<h2>translate(50,0)</h2>
+<canvas id="dessin2" width="640" height="120">
+</canvas>
+
+<h2>rotate(0.5)</h2>
+<canvas id="dessin3" width="640" height="220">
+</canvas>
+
+<h2>transform(1.5,0.3,1,0.7,0.4,0.5)</h2>
+<canvas id="dessin4" width="640" height="150">
+</canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin1');
+var ctx1 = moncanvas.getContext('2d');
+
+ctx1.strokeStyle = "#ccc";
+ctx1.lineWidth = 2;
+ctx1.fillStyle = "red";
+
+ctx1.scale(2,2);
+
+ctx1.fillRect(10, 10, 200, 100);
+ctx1.clearRect(100,20, 20, 80);
+ctx1.clearRect(70,50, 80, 20);
+ctx1.strokeRect(0, 0, 220, 120);
+
+var moncanvas = document.getElementById('dessin2');
+var ctx2 = moncanvas.getContext('2d');
+
+ctx2.strokeStyle = "#ccc";
+ctx2.lineWidth = 2;
+ctx2.fillStyle = "red";
+
+ctx2.translate(50,0);
+
+ctx2.fillRect(10, 10, 200, 100);
+ctx2.clearRect(100,20, 20, 80);
+ctx2.clearRect(70,50, 80, 20);
+ctx2.strokeRect(0, 0, 220, 120);
+
+var moncanvas = document.getElementById('dessin3');
+var ctx3 = moncanvas.getContext('2d');
+
+ctx3.strokeStyle = "#ccc";
+ctx3.lineWidth = 2;
+ctx3.fillStyle = "red";
+
+ctx3.rotate(0.5);
+
+ctx3.fillRect(10, 10, 200, 100);
+ctx3.clearRect(100,20, 20, 80);
+ctx3.clearRect(70,50, 80, 20);
+ctx3.strokeRect(0, 0, 220, 120);
+
+var moncanvas = document.getElementById('dessin4');
+var ctx4 = moncanvas.getContext('2d');
+
+ctx4.strokeStyle = "#ccc";
+ctx4.lineWidth = 2;
+ctx4.fillStyle = "red";
+
+ctx4.transform(1.5,0.1,1,0.9,0.4,0.5);
+
+ctx4.fillRect(10, 10, 200, 100);
+ctx4.clearRect(100,20, 20, 80);
+ctx4.clearRect(70,50, 80, 20);
+ctx4.strokeRect(0, 0, 220, 120);
+
+/*
+ctx4.transform(1.5,0.3,1,0.7,0.4,0.5);
+
+ctx4.fillRect(10, 10, 200, 100);
+ctx4.clearRect(100,20, 20, 80);
+ctx4.clearRect(70,50, 80, 20);
+ctx4.strokeRect(0, 0, 220, 120);
+*/
+
+var moncanvas = document.getElementById('dessin5');
+var ctx5 = moncanvas.getContext('2d');
+
+ctx5.strokeStyle = "#ccc";
+ctx5.lineWidth = 2;
+ctx5.fillStyle = "red";
+
+ctx5.setTransform(1.5,0.3,1,0.7,0.4,0.5);
+
+ctx5.fillRect(10, 10, 200, 100);
+ctx5.clearRect(100,20, 20, 80);
+ctx5.clearRect(70,50, 80, 20);
+ctx5.strokeRect(0, 0, 220, 120);
+
+ctx5.setTransform(1.5,0.3,1,0.7,0.4,0.5);
+
+ctx5.fillRect(10, 10, 200, 100);
+ctx5.clearRect(100,20, 20, 80);
+ctx5.clearRect(70,50, 80, 20);
+ctx5.strokeRect(0, 0, 220, 120);
+
+</script>
+
+</body>
+</html>

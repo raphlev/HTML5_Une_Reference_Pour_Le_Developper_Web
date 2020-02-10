@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travailleurs, travailleuses...</title>
+  </head>
+  <body>
+    <p id="resultat"></p>
+    <input type="button" value="Envoyer un message" id="btn">
+  </body>
+  <script>
+  // Initialisation
+  var travailleur = new Worker('echo.js');
+  // Réception des messages en provenance du worker
+  travailleur.onmessage = function(e) {
+    document.getElementById("resultat").innerHTML += 'Le worker a répondu : '+e.data+'<br>';
+  };
+  // Envoi de messages
+  document.getElementById("btn").onclick = function() {
+    document.getElementById("resultat").innerHTML += 'On envoie : hopla!<br>';
+    travailleur.postMessage("hopla!");
+  }
+  </script>
+</html>

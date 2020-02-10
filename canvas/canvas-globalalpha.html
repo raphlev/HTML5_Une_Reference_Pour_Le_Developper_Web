@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+canvas, img {
+	border:1px solid #eee;
+}
+output {
+	word-wrap:break-word;
+	font-family:monospace;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="300" height="300">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<p>
+	<label for="globalalpha">globalAlpha</label> : <input type="input" id="globalalpha" value="0.3">
+	<input type="button" id="redessiner" value="Redessiner">
+</p>
+
+<script>
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+var w = ctx.canvas.width;
+var h = ctx.canvas.height;
+ctx.fillStyle = "#789";
+
+function dessiner() {
+	ctx.globalAlpha = parseFloat(document.getElementById('globalalpha').value);
+	// Effacement
+	ctx.clearRect(0,0,w,h);
+	// Tracé de rectangles aléatoires
+	var a = Math.random()*(w-60)/2;
+	var b = Math.random()*(h-60)/2;
+	for(i=0;i<6;i++) {
+		a+=10;
+		b+=10;
+		ctx.fillRect(a,b,a,b);
+	}
+}
+
+dessiner();
+
+document.getElementById('redessiner').onclick = dessiner;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : WebSQL</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+
+<div id="affichage"></div>
+
+<div class="wrap">
+  <p><strong>Journal</strong></p>
+  <div id="log"></div>
+  <form>
+    <h2>Insérer</h2>
+    <p>
+      <input type="text" name="latitude" id="lat">
+      <input type="text" name="longitude" id="lng">
+      <input type="text" name="description" id="desc">
+      <input type="submit" value="OK" id="valid">
+    </p>
+    <h2>Opérations</h2>
+    <p>
+      <input type="button" id="" value="Effacer la table">
+    </p>
+  </form>
+</div>
+
+<script>
+
+if('openDatabase' in window) {
+  var db = openDatabase('BaseGeo', '1.0', 'Emplacements géographiques', 1024*1024);
+  if(db) log("Base ouverte");
+  db.transaction(function(sqltrans) {
+
+    sqltrans.executeSql('DROP TABLE geo',[]);
+    sqltrans.executeSql('CREATE TABLE IF NOT EXISTS geo (id INTEGER PRIMARY KEY ASC, lat FLOAT, lng FLOAT, alt FLOAT, desc TEXT)',[]);
+    sqltrans.executeSql('INSERT INTO geo (lat,lng,alt,desc) VALUES (?,?,?,?)',['48.58177','7.750555','142','Strasbourg']);
+    sqltrans.executeSql('INSERT INTO geo (lat,lng,alt,desc) VALUES (?,?,?,?)',['48.458807','-5.088043','19','Ouessant']);
+    
+    sqltrans.executeSql('SELECT * FROM geo ORDER BY alt',[],function(sqltrans,result) {
+      var nb = result.rows.length;
+      console.log(result);
+      var i;
+      for (i = 0; i < nb; i++) {
+        var texte = 
+        "<b>"+result.rows.item(i).desc+"</b>"
+        +" a pour coordonnées ("
+        +result.rows.item(i).lat+","
+        +result.rows.item(i).lng+") "
+        +" et pour altitude "+result.rows.item(i).alt+"m";
+        document.getElementById('affichage').innerHTML += texte+"<br>";
+      }
+    });
+
+  });
+} else {
+  alert("Base WebSQL non supportée par ce navigateur");
+}
+
+// Fonction d’ajout au journal
+function log(txt) {
+  document.getElementById('log').innerHTML+=txt+"\r\n";
+}
+
+</script>
+
+</body>
+</html>

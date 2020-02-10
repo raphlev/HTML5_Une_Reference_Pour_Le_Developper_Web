@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="800" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+// Configuration des ombrages pour le rectangle
+ctx.shadowOffsetX = 0;
+ctx.shadowOffsetY = 0;
+ctx.shadowBlur = 15;
+ctx.shadowColor = 'rgba(204,69,228,1)';
+
+// Tracé d'un rectangle
+ctx.fillStyle = '#fff';
+ctx.fillRect(10,10,150,150);
+
+// Tracé d'un autre rectangle
+ctx.fillStyle = '#9f0c9d';
+ctx.fillRect(50,50,70,70);
+
+// Configuration des ombrages pour le polygone
+ctx.shadowOffsetX = 0;
+ctx.shadowOffsetY = 20;
+ctx.shadowBlur = 10;
+ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+
+// Tracés
+ctx.strokeStyle = '#2e6996';
+ctx.lineWidth = 5;
+ctx.fillStyle = '#b2d7f3';
+
+// Ligne
+ctx.moveTo(300,150);
+ctx.lineTo(350,100);
+
+// Triangle 1
+ctx.moveTo(350,150);
+ctx.lineTo(400,100);
+ctx.lineTo(450,150);
+
+ctx.fill();
+ctx.stroke();
+
+ctx.closePath();
+ctx.beginPath();
+
+// Triangle 2
+ctx.moveTo(480,150);
+ctx.lineTo(530,100);
+ctx.lineTo(580,150);
+
+ctx.stroke();
+ctx.fill();
+
+// Configuration des ombrages pour le texte et l'image
+ctx.shadowOffsetX = 5;
+ctx.shadowOffsetY = 5;
+ctx.shadowBlur = 5;
+ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+
+// Tracé d'un texte
+ctx.fillStyle = '#444';
+ctx.font = 'bold 20pt Arial,Verdana';
+ctx.fillText("À l'ombre des cerisiers",190,50);
+
+// Une image
+var img = new Image();
+img.src = 'img/apercu.jpg';
+img.onload = function() {
+  // Dessin de l'image
+  ctx.drawImage(img,190,70);
+};
+
+</script>
+
+</body>
+</html>

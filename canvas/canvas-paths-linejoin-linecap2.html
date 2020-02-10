@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin1" width="150" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<canvas id="dessin2" width="150" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<canvas id="dessin3" width="150" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<canvas id="dessin4" width="150" height="200">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas1 = document.getElementById('dessin1');
+var ctx1 = moncanvas1.getContext('2d');
+
+ctx1.fillStyle = "yellowgreen";
+ctx1.strokeStyle = "steelblue";
+ctx1.lineWidth = 20;
+ctx1.lineCap = "round";
+ctx1.lineJoin = "round";
+
+ctx1.moveTo(60,60);
+ctx1.lineTo(100,100);
+ctx1.lineTo(20,100);
+ctx1.lineTo(20,20);
+ctx1.fill();
+ctx1.stroke();
+
+// ----------------------------
+
+var moncanvas2 = document.getElementById('dessin2');
+var ctx2 = moncanvas2.getContext('2d');
+
+ctx2.strokeStyle = "steelblue";
+ctx2.fillStyle = "yellowgreen";
+ctx2.lineWidth = 20;
+ctx2.lineCap = "butt";
+ctx2.lineJoin = "miter";
+
+ctx2.moveTo(60,60);
+ctx2.lineTo(100,100);
+ctx2.lineTo(20,100);
+ctx2.lineTo(20,20);
+ctx2.fill();
+ctx2.stroke();
+
+// ----------------------------
+
+var moncanvas3 = document.getElementById('dessin3');
+var ctx3 = moncanvas3.getContext('2d');
+
+ctx3.strokeStyle = "steelblue";
+ctx3.fillStyle = "yellowgreen";
+ctx3.lineWidth = 20;
+ctx3.lineCap = "butt";
+ctx3.lineJoin = "miter";
+ctx3.miterLimit = "2"; // !
+
+ctx3.moveTo(60,60);
+ctx3.lineTo(100,100);
+ctx3.lineTo(20,100);
+ctx3.lineTo(20,20);
+ctx3.fill();
+ctx3.stroke();
+
+// ----------------------------
+
+var moncanvas4 = document.getElementById('dessin4');
+var ctx4 = moncanvas4.getContext('2d');
+
+ctx4.strokeStyle = "steelblue";
+ctx4.fillStyle = "yellowgreen";
+ctx4.lineWidth = 20;
+ctx4.lineCap = "square";
+ctx4.lineJoin = "bevel";
+
+ctx4.moveTo(60,60);
+ctx4.lineTo(100,100);
+ctx4.lineTo(20,100);
+ctx4.lineTo(20,20);
+ctx4.fill();
+ctx4.stroke();
+
+</script>
+
+</body>
+</html>

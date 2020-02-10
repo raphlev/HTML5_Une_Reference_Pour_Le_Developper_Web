@@ -1,0 +1,51 @@
+body {
+  background:white;
+}
+
+p {
+  font-size:1.5em;
+  color:#444;
+  font-family:sans-serif;
+  margin-top:0;
+}
+
+textarea, iframe {
+  width:100%;
+}
+
+textarea {
+  border:2px solid #A9C832;
+  font-family:inherit;
+}
+
+iframe {
+  border:2px solid orange;
+  height:200px;
+}
+
+.wrap {
+  background:#eee;
+  padding:2em;
+  border-radius:2em;
+  width:400px;
+}
+
+#messages {
+  color:#444;
+  font-family:sans-serif;
+}
+
+#retour {
+  background:#ddd;
+  color:#666;
+  font-size:1em;
+  padding:1em;
+  border:2px solid #999;
+}
+
+input[type=submit] {
+  margin:auto;
+  display:block;
+  width:50%;
+  padding:0.5em;
+}

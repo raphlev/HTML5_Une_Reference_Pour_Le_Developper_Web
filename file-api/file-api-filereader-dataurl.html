@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : File API (FileReader)</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<style>
+img {
+  position:absolute;
+  background:white;
+  padding:20px;
+  max-width:250px;
+  /* Ombrage */
+  -moz-box-shadow: 0px 0px 20px #bbb;
+  -webkit-box-shadow: 0px 0px 20px #bbb;
+  box-shadow: 0px 0px 20px #bbb;
+  /* Transitions */
+  transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+}
+img:hover {
+  /* Transformations au survol */
+  -webkit-transform:rotate(0deg) scale(1.2) !important;
+  -moz-transform:rotate(0deg) scale(1.2) !important;
+  -o-transform:rotate(0deg) scale(1.2) !important;
+  -ms-transform:rotate(0deg) scale(1.2) !important;
+  transform:rotate(0deg) scale(1.2) !important;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <p><strong>File API (FileReader)</strong></p>
+  <input type="file" multiple name="mesfichiers" id="mesfichiers" onchange="analyseFichiers(this.files);">
+
+</div>
+
+<script>
+function analyseFichiers(fichiers) {
+  if(fichiers) {
+    for(i=0;i<fichiers.length;i++){
+
+      // Si le fichier est de type image
+      // ... et que FileReader est disponible
+      if(fichiers[i].type.match('image.*') && (typeof window.FileReader !== 'undefined')) {
+
+        reader = new FileReader();
+
+        // Gestion de l'événement load
+        reader.onload = function (event) {
+
+          // Ajout en tant qu'image
+          var img = document.createElement('img');
+          img.src = event.target.result;
+
+          // Ajout dans le DOM
+          document.body.parentNode.insertBefore(img,document.body.nextSibling);
+
+          // Modification du style à la volée
+          img.style.top = Math.round(Math.random()*window.innerHeight/2)+"px";
+          img.style.left = Math.round(Math.random()*window.innerWidth/2)+"px";
+
+          // Rotation aléatoire
+          var rotation = Math.round(Math.random()*40-20);
+          img.style.webkitTransform = "rotate("+rotation+"deg)";
+          img.style.OTransform = "rotate("+rotation+"deg)";
+          img.style.msTransform = "rotate("+rotation+"deg)";
+          img.style.MozTransform = "rotate("+rotation+"deg)";
+          img.style.transform = "rotate("+rotation+"deg)";
+
+        };
+
+        // Lancement de FileReader pour le fichier
+        reader.readAsDataURL(fichiers[i]);
+    
+      }
+
+    }
+  }
+}
+</script>
+
+</body>
+
+</html>

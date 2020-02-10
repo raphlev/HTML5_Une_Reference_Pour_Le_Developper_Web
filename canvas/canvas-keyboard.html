@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+body {
+  background:#eee;
+  text-align:center;
+  padding-top:10%;
+}
+canvas {
+  border:5px solid #666;
+  background:white;
+  border-radius:4px;
+  box-shadow:0px 0px 20px #666;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="480" height="360"></canvas>
+
+<script>
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+ctx.strokeStyle = "black";
+ctx.lineWidth = 5;
+ctx.lineCap = "round";
+
+// Calcul du centre
+var x = moncanvas.width/2;
+var y = moncanvas.height/2;
+
+// Position de départ
+ctx.moveTo(x,y);
+
+// Gestionnaire d'événement keydown
+if(document.body.onkeydown) {
+  document.body.onkeydown = dessiner;
+} else if(document) {
+  document.onkeydown = dessiner;  
+}
+
+// Déplacement du "pinceau"
+function dessiner(event) {
+  switch(event.keyCode) {
+    case 38: // Haut
+      event.preventDefault();
+      if(y>=5) y-=5;
+    break;
+    case 40: // Bas
+      event.preventDefault();
+      if(y<moncanvas.height) y+=5;
+    break;
+    case 39: // Droite
+      event.preventDefault();
+      if(x<moncanvas.width) x+=5;
+    break;
+    case 37: // Gauche
+      event.preventDefault();
+      if(x>=5) x-=5;
+    break;
+  }
+  ctx.lineTo(x,y);
+  ctx.stroke();
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Template, Shadow DOM, Custom Elements</title>
+  </head>
+<body>
+
+<div id="container"></div>
+
+<template class="city">
+  <style>p { color: white; padding: 1em; margin: 0; font-family: sans-serif; display:inline-block; }
+    .ville { background: rebeccapurple; }
+    .province { background: crimson; margin-bottom: 1em; }
+    :host { display: block; }
+    </style>
+  <p class="ville">Ville : <slot name="city"></slot></p>
+  <p class="province">Province : <slot name="province"></slot></p>
+</template>
+
+<script> 
+customElements.define('x-ville', class extends HTMLElement {
+  constructor() {
+    super();
+    var root = this.attachShadow({mode: 'open'});
+    var tpl = document.querySelector('.city');
+    root.appendChild(tpl.content.cloneNode(true));
+  }
+});
+</script>
+
+<x-ville><span slot="city">Montréal</span><span slot="province">Québec</span></x-ville>
+<x-ville><span slot="city">Vancouver</span><span slot="province">Colombie-Britannique</span></x-ville>
+<x-ville><span slot="city">Edmonton</span><span slot="province">Alberta</span></x-ville>
+<x-ville><span slot="city">Winnipeg</span><span slot="province">Manitoba</span></x-ville>
+
+</body>
+</html>

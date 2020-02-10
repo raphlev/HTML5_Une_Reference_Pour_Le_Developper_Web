@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+canvas, img {
+  border:1px solid #eee;
+}
+output {
+  word-wrap:break-word;
+  font-family:monospace;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="300" height="300">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+<p>
+  <label for="compositing">Opération</label> :
+  <select id="compositing">
+    <option value="source-over">source-over</option>
+    <option value="source-in">source-in</option>
+    <option value="source-out">source-out</option>
+    <option value="source-atop">source-atop</option>
+    <option value="destination-over">destination-over</option>
+    <option value="destination-in">destination-in</option>
+    <option value="destination-out">destination-out</option>
+    <option value="destination-atop">destination-atop</option>
+    <option value="lighter">lighter</option>
+    <option value="darker">darker</option>
+    <option value="copy">copy</option>
+    <option value="xor">xor</option>
+  </select>
+  <input type="button" id="redessiner" value="Redessiner">
+</p>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+function dessiner() {
+  var compo = document.getElementById('compositing');
+  var operation = compo.options[compo.selectedIndex].value;
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  ctx.globalCompositeOperation = operation;
+  ctx.fillStyle = "steelblue";
+  ctx.fillRect(10,10,80,80);
+  ctx.fillStyle = "YellowGreen";
+  ctx.arc(100,100,60,0,Math.PI*2,true);
+  ctx.fill();
+}
+
+dessiner();
+
+document.getElementById('redessiner').onclick = dessiner;
+
+</script>
+
+</body>
+</html>

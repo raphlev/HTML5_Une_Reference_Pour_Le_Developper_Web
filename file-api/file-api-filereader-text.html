@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : File API (FileReader)</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<style>
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <p><strong>File API (FileReader)</strong></p>
+  <input type="file" multiple name="mesfichiers" id="mesfichiers" onchange="analyseFichiers(this.files);">
+  <output id="sortie"></output>
+
+</div>
+
+<script>
+function analyseFichiers(fichiers) {
+  var sortie = document.getElementById('sortie');
+  if(fichiers) {
+    for(i=0;i<fichiers.length;i++){
+
+      // Si FileReader est disponible
+      if(fichiers[i].type.match('text.*') && (typeof window.FileReader !== 'undefined')) {
+
+        reader = new FileReader();
+
+        // Gestion de l'événement load
+        reader.onload = function (event) {
+
+          // Ajout dans le DOM
+          sortie.innerHTML += event.target.result;
+
+        };
+
+        // Lancement de FileReader pour le fichier
+        reader.readAsText(fichiers[i]);
+    
+      }
+
+    }
+  }
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="640" height="480">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+  var moncanvas = document.getElementById('dessin');
+  var ctx = moncanvas.getContext('2d');
+
+  ctx.strokeStyle = "red";
+  ctx.lineWidth = 2;
+  ctx.fillStyle = "gold";
+
+	
+	function triangles() {
+		var a = Math.random()*ctx.canvas.width;
+		var b = Math.random()*ctx.canvas.height;
+		var c = Math.random()*ctx.canvas.width;
+		var d = Math.random()*ctx.canvas.height;
+		var e = Math.random()*ctx.canvas.width;
+		var f = Math.random()*ctx.canvas.height;
+		ctx.moveTo(a,b);
+		ctx.lineTo(c, d);
+		ctx.lineTo(e, f);
+		ctx.fill();
+		ctx.stroke();
+		ctx.closePath();
+	}
+	
+	setInterval(triangles,100);
+	
+</script>
+
+</body>
+</html>

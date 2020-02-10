@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : Drag and Drop !</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+<div class="wrap">
+  <p><strong>Glisser vers le bureau...</strong></p>
+  <p>
+    <a href="photo1.jpg" class="dragout" data-downloadurl="image/jpeg:photo1.jpg:http://kiwi.alsacreations.fr/tmp/drag-and-drop/photo1.jpg">Photo 1</a>
+    <a href="photo2.jpg" class="dragout" data-downloadurl="image/jpeg:photo2.jpg:http://kiwi.alsacreations.fr/tmp/drag-and-drop/photo2.jpg">Photo 2</a>
+    <a href="photo3.jpg" class="dragout" data-downloadurl="image/jpeg:photo3.jpg:http://kiwi.alsacreations.fr/tmp/drag-and-drop/photo3.jpg">Photo 3</a>
+  </p>
+</div>
+
+<script>
+
+var fichiers = document.getElementsByClassName("dragout");
+
+for(i = 0; i<fichiers.length; i++) {
+  fichiers[i].addEventListener("dragstart",function(event) {
+	var data = (event.target.dataset && event.target.dataset.downloadurl || event.target.getAttribute("data-downloadurl"));
+    event.dataTransfer.setData("DownloadURL",data);
+  },false);
+}
+
+</script>
+
+</body>
+</html>

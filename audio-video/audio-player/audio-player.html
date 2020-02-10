@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Audio</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="audio-player.css" type="text/css">
+</head>
+<body>
+
+<audio id="monaudio" controls>
+  <source src="space.mp3" type="audio/mp3">
+  <source src="space.ogg" type="audio/ogg">
+  <source src="space.wav" type="audio/wav">
+</audio>
+
+<div id="player">
+  <input type="button" value="Lecture" class="play">
+  <input type="button" value="Pause" class="pause">
+  <span class="info">0:00</span>
+  <span class="track"><span></span></span>
+  <input type="button" value="Volume" class="audible">
+  <input type="button" value="Muet" class="muted">
+</div>
+
+<script>
+var audio = document.getElementById("monaudio");
+audio.removeAttribute("controls");
+audio.style.display='none'; // Pour Chrome
+
+var player = document.getElementById("player");
+player.style.display='block';
+
+var info = player.getElementsByClassName("info")[0];
+var track = player.getElementsByClassName("track")[0];
+var seeker = track.childNodes[0];
+
+player.getElementsByClassName("play")[0].onclick = function() {
+  audio.play();
+};
+
+player.getElementsByClassName("pause")[0].onclick = function() {
+  audio.pause();
+};
+
+player.getElementsByClassName("audible")[0].onclick = function() {
+  audio.volume = 0;
+  this.style.display='none';
+  player.getElementsByClassName("muted")[0].style.display='block';
+};
+
+player.getElementsByClassName("muted")[0].onclick = function() {
+  audio.volume = 1;
+  this.style.display='none';
+  player.getElementsByClassName("audible")[0].style.display='block';
+};
+
+audio.addEventListener('timeupdate', function(){
+  var total = audio.duration;
+  var position = audio.currentTime;
+  var progression = (position/total)*100;
+  var min = parseInt(position/60);
+  var sec = parseInt(position-(min*60));
+  seeker.style.width=parseFloat(progression)+'%';
+  if(sec<10) sec = '0'+sec;
+  info.innerHTML = min+':'+sec;
+}, false);
+
+audio.addEventListener('ended', function() {
+  info.innerHTML = '0:00';
+  seeker.style.width=0;
+}, false);
+
+track.addEventListener('click',function(e) {
+  var pos = e.offsetX/e.target.clientWidth;
+  audio.currentTime = pos*100/audio.duration;
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="640" height="480"></canvas>
+
+<script>
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+ctx.lineWidth = 5;
+ctx.strokeStyle = "rgba(206,0,0,255)";
+ctx.shadowOffsetX = 0;
+ctx.shadowOffsetY = 0;
+ctx.shadowBlur = 15;
+ctx.shadowColor = '#000';
+
+ctx.translate(moncanvas.width/2,moncanvas.height/2);
+
+var i = 0;
+
+// requestAnimationFrame shim (par Paul Irish)
+window.requestAnimFrame = (function(){
+ return window.requestAnimationFrame       || 
+        window.webkitRequestAnimationFrame || 
+        window.mozRequestAnimationFrame    || 
+        window.oRequestAnimationFrame      || 
+        window.msRequestAnimationFrame     || 
+        function(callback,element) {
+          window.setTimeout(callback,1000/60);
+        };
+})();
+
+// Fonction de dessin
+function dessiner() {
+  ctx.translate(3,1);
+  ctx.rotate(0.2);
+  ctx.beginPath();
+  ctx.moveTo(0,i);
+  ctx.lineTo(i+1,i);
+  ctx.lineTo(i,i+10);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.strokeStyle = "rgba(206,"+i+",0,255)";
+  i++;
+  // Nouvelle itération
+  requestAnimFrame(dessiner);
+}
+
+// Premier appel de la fonction de dessin
+dessiner();
+
+</script>
+
+</body>
+</html>

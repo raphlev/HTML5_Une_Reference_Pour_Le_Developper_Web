@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+output {
+	word-wrap:break-word;
+	font-family:monospace;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="300" height="300">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+<p>
+	<label for="police">Opération</label> :
+	<input id="police" value="20px sans-serif">
+	<input type="button" id="redessiner" value="Redessiner">
+</p>
+
+<p>
+	<output id="mesure"></output>
+</p>
+
+<script>
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+function dessiner() {
+	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+
+	ctx.strokeStyle = "orange";
+	ctx.fillStyle = "YellowGreen";
+
+	ctx.font = document.getElementById('police').value;
+	
+	ctx.textAlign = "start"; // start, end, left, right, center
+	ctx.textBaseline = "top"; // alphabetic, top, hanging, middle, ideographic, bottom
+	
+	
+	ctx.fillText("mdr",10,10);
+	ctx.strokeText("ptdr",10,50);
+	
+	ctx.fillText("kikoo oo ooo oooo",10,100,20);
+	ctx.strokeText("ptdr lo llllz zzz",10,150,20);
+	
+	document.getElementById('mesure').textContent = "Le texte 'HTML5' nécessiterait "+ctx.measureText("HTML5").width+" pixels de large";
+}
+
+dessiner();
+
+document.getElementById('redessiner').onclick = dessiner;
+
+</script>
+
+</body>
+</html>

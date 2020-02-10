@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Géolocalisation avec geo-location-javascript</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<!-- Un élément HTML pour recueillir l’affichage -->
+<div id="maposition"></div>
+
+<!-- Google Gears -->
+<script src="http://code.google.com/apis/gears/gears_init.js"></script>
+
+<!-- Geo-location-javascript : http://code.google.com/p/geo-location-javascript/ -->
+<script src="geo-location-javascript/geo.js"></script>
+
+<script>
+
+// Fonction de callback en cas de succès
+function succesGeo(position) {
+	var infopos = "Position déterminée : <br>";
+	infopos += "Latitude : "+position.coords.latitude +"<br>";
+	infopos += "Longitude: "+position.coords.longitude+"<br>";
+	infopos += "Altitude : "+position.coords.altitude +"<br>";
+	document.getElementById("maposition").innerHTML = infopos;
+}
+
+// Fonction de callback en cas d’erreur
+function erreurGeo(error) {
+	var info = "Erreur lors de la géolocalisation : ";
+	info += error.message;
+	document.getElementById("maposition").innerHTML = info;
+}
+
+// Initialisation du framework et géolocalisation
+if(geo_position_js.init()){
+	document.getElementById("maposition").innerHTML = "En cours...";
+	geo_position_js.getCurrentPosition(succesGeo,erreurGeo);
+} else {
+	alert("Ce navigateur ne supporte pas la géolocalisation");
+}
+
+</script>
+
+</body>
+</html>

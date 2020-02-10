@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Historique</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="wrap">
+
+<ul id="liens">
+  <li><a href="#pomme">Pomme</a></li>
+  <li><a href="#raisin">Raisin</a></li>
+  <li><a href="#kiwi">Kiwi</a></li>
+  <li><a href="#banane">Banane</a></li>
+</ul>
+
+<div id="contenu">
+  <article id="pomme">
+    <img src="pomme.jpg" alt="Une pomme">
+    <p>La pomme est le fruit du pommier, arbre fruitier largement cultivé. L’arboriculture fruitière est une branche de l’arboriculture spécialisée dans la culture des arbres fruitiers afin d'en récolter les fruits ou les faux-fruits comme la pomme du pommier domestique.</p>
+  </article>
+  <article id="raisin">
+    <img src="raisin.jpg" alt="Du raisin">
+    <p>Le raisin est le fruit de vignes du genre Vitis. Il se présente sous la forme de grappes composées de nombreux grains, qui sont sur le plan botanique des baies, de petite taille et de couleur claire, pour le raisin blanc ou plus foncée, pour le raisin rouge.</p>
+  </article>
+  <article id="kiwi">
+  <img src="kiwi.jpg" alt="Un kiwi">
+  <p>Les kiwis sont des fruits de plusieurs espèces de lianes du genre Actinidia, famille des Actinidiaceae. Ils sont originaires de Chine, notamment de la province de Shaanxi. On en trouve par ailleurs dans des climats dits montagnards tropicaux.</p>
+</article>
+  <article id="banane">
+  <img src="banane.jpg" alt="Une banane">
+  <p>La banane est le fruit, ou baie dérivant de l’inflorescence du bananier. Les bananes constituent un élément essentiel du régime alimentaire de certains pays développés et constituent une nourriture de base pour des millions de personnes sous les tropiques.</p>
+  </article>
+</div>
+
+<hr />
+
+<p id="messages"></p>
+
+<p></p>
+
+</div> <!-- .wrap -->
+
+<script>
+
+window.onload = function() {
+
+  // Fonction gérant l'affichage et le
+  // masquage des différentes vues
+  function affiche(identifiant) {
+
+    var articles = document.querySelectorAll("#contenu article");
+    
+    // Valeur par défaut si aucun identifiant
+    if(identifiant==null) identifiant = "#"+articles[0].getAttribute("id");
+    
+    document.getElementById("messages").innerHTML += "On affiche <i>"+identifiant+"</i><br>";
+    
+    // Application de la vue active
+    for(j=0;j<articles.length;j++) {
+      if("#"+articles[j].getAttribute("id")==identifiant) {
+        articles[j].style.display='block';
+      } else {
+        articles[j].style.display='none';
+      }
+    }
+    
+    // Application de la classe active au lien
+    for(j=0;j<liens.length;j++) liens[j].className='';
+    document.querySelector('#liens a[href="'+identifiant+'"]').className='actif';
+    
+  }
+
+  // Détection de la présence de l'API
+  if (typeof history.pushState !== "undefined") {
+
+    var liens = document.querySelectorAll("#liens a");
+    
+    // Pour tous les liens
+    for(i=0;i<liens.length;i++){
+
+      // Création d'un gestionnaire d'événement click
+      liens[i].addEventListener('click',function(e) {
+
+        // Appel de la fonction d'affichage
+        // avec pour paramètre le hash du lien
+        affiche(e.target.hash);
+
+        // Création de l'objet d'état
+        var etat  = {affichage:e.target.hash};
+
+        // Insertion dans l'historique
+        history.pushState(etat,e.target.text,e.target.text+".html");
+        e.preventDefault();
+
+      },false);
+    }
+
+    // Classe par défaut au chargement sur le premier lien
+    liens[0].className='actif';
+    
+    // Gestionnaire d'événement popstate
+    window.onpopstate = function(event) {
+      document.getElementById("messages").innerHTML += "<span>Evénement popstate !</span><br><i>event.state</i> = "+event.state+"<br>";
+
+      // Si un objet d'état est présent
+      if(event.state!=null) {
+
+        document.getElementById("messages").innerHTML += "<i>event.state.affichage</i> = "+event.state.affichage+"<br>";
+
+        // Appel de la fonction d'affichage
+        // avec pour paramètre l'identifiant mémorisé
+        affiche(event.state.affichage);
+
+      } else {
+
+        // Appel de la fonction d'affichage sans état
+        affiche(null);
+      }
+    }
+
+  } else {
+
+    alert("Ce navigateur ne supporte pas la gestion avancée de l'historique");
+
+  }
+  
+};
+
+</script>
+
+</body>
+</html>

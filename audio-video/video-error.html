@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Video</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<video src="video.erreur" id="mavideo" width="450" height="256" autoplay></video>
+
+<script>
+document.getElementById("mavideo").onerror = function(e) {
+  switch(e.target.error.code) {
+    case e.target.error.MEDIA_ERR_ABORTED:
+      alert('La lecture du média a été annulée.');
+    break;
+    case e.target.error.MEDIA_ERR_NETWORK:
+      alert('Une erreur ou une indisponibilité réseau n\'a pas permis le bon déroulement du téléchargement.');
+    break;
+    case e.target.error.MEDIA_ERR_DECODE:
+      alert('La lecture a été annulée suite à une erreur de corruption du fichier, ou parce que le média utilise des fonctionnalités que ce navigateur ne peut supporter.');
+    break;
+    case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+      alert('Le fichier ne peut être chargé, soit parce que le serveur distant ou le réseau sont indisponibles, soit parce que le format n\'est pas supporté.');
+    break;
+    default:
+      alert('Erreur inconnue.');
+    break;
+  }
+};
+</script>
+
+<p><small>Vidéo : Bande-annonce de <a href="http://www.bigbuckbunny.org">Big Buck Bunny</a> sous licence Creative Commons Attribution 3.0</small></p>
+
+</body>
+</html>

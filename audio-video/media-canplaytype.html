@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : canPlayType</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<h1>Video</h1>
+<video id="mavideo" width="720" height="406" poster="bunny.jpg" controls>
+  <source src="bunny.mp4" type="video/mp4">
+  <source src="bunny.ogv" type="video/ogg">
+  <source src="bunny.webm" type="video/webm">
+  <p>Télécharger la vidéo <a href="bunny.webm">WebM</a> <a href="bunny.ogv">Ogg</a> <a href="bunny.mp4">MP4</a></p>
+</video>
+
+<h1>Audio</h1>
+
+<audio id="monaudio" controls>
+  <source src="space.mp3" type="audio/mp3">
+  <source src="space.ogg" type="audio/ogg">
+  <source src="space.wav" type="audio/wav">
+</audio>
+
+<p>
+  <button type="button" id="btnplay" onclick="vid1.play();">Play</button>
+</p>
+
+<p id="info"></p>
+
+<p><small>Vidéo : Bande-annonce de <a href="http://www.bigbuckbunny.org">Big Buck Bunny</a> sous licence Creative Commons Attribution 3.0</small></p>
+
+<script>
+
+var vid1 = document.getElementById("mavideo");
+var aud1 = document.getElementById("monaudio");
+var info = document.getElementById("info");
+
+// Affichage des détections
+info.innerHTML += "<b>canPlayType()</b><br>";
+
+info.innerHTML += "video/webm : "+vid1.canPlayType("video/webm")+"<br>";
+info.innerHTML += "video/ogg : "+vid1.canPlayType("video/ogg")+"<br>";
+info.innerHTML += "video/ogg; codecs=\"theora, vorbis\" : "+vid1.canPlayType('video/ogg; codecs="theora, vorbis"')+"<br>";
+info.innerHTML += "video/mp4 : "+vid1.canPlayType("video/mp4")+"<br>";
+info.innerHTML += "video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\" : "+vid1.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"')+"<br>";
+
+info.innerHTML += "audio/mp3 : "+aud1.canPlayType("audio/mp3")+"<br>";
+info.innerHTML += "audio/mp4 : "+aud1.canPlayType("audio/mp4")+"<br>";
+info.innerHTML += "audio/wav : "+aud1.canPlayType("audio/wav")+"<br>";
+info.innerHTML += "audio/ogg : "+aud1.canPlayType("audio/ogg")+"<br>";
+
+</script>
+
+</body>
+</html>

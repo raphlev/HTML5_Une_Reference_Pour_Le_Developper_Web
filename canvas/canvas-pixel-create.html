@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="300" height="300" style="border:1px solid #ccc">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+var newPixels = ctx.createImageData(moncanvas.width, moncanvas.height);
+
+n = newPixels.data.length;
+
+// Intégralité des pixels
+for (var i = 0; i < n; i += 4) {
+  newPixels.data[i  ] = 255; // Canal Rouge
+  newPixels.data[i+3] = 255; // Canal Alpha (100%)
+}
+
+// Trois premiers quarts
+for (var i = 0; i < n*3/4; i += 4) {
+  newPixels.data[i+1] = 255; // Canal Vert
+  newPixels.data[i+3] = 255; // Canal Alpha (100%)
+}
+
+// Première moitié
+for (var i = 0; i < n/2; i += 4) {
+  newPixels.data[i+2] = 255; // Canal Bleu
+  newPixels.data[i+3] = 127; // Canal Alpha (50%)
+}
+
+// Premier quart
+for (var i = 0; i < n/4; i += 4) {
+  newPixels.data[i  ] = 0; // Canal Rouge
+  newPixels.data[i+1] = 0; // Canal Vert
+  newPixels.data[i+2] = 0; // Canal Bleu
+  newPixels.data[i+3] = 255; // Canal Alpha (100%)
+}
+
+ctx.putImageData(newPixels, 0, 0);
+
+</script>
+
+</body>
+</html>

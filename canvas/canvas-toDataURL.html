@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+canvas, img {
+	border:1px solid #eee;
+}
+output {
+	word-wrap:break-word;
+	font-family:monospace;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="150" height="150">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+<input type="button" id="redessiner" value="Redessiner">
+
+<h2>toDataURL</h2>
+<output id="dataURL"></output>
+
+<h2>&lt;img&gt;</h2>
+<img id="image" alt="Image vide par défaut">
+<input type="button" id="importer" value="Importer">
+
+<script>
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+var w = ctx.canvas.width;
+var h = ctx.canvas.height;
+ctx.fillStyle = "#789";
+
+function dessiner() {
+	// Effacement
+	ctx.clearRect(0,0,w,h);
+	// Tracé de 3 rectangles aléatoires
+	for(i=0;i<3;i++) {
+		var a = Math.random()*w/2;
+		var b = Math.random()*h/2;
+		ctx.fillRect(a,b,a,b);
+	}
+	document.getElementById('dataURL').textContent = moncanvas.toDataURL();
+}
+
+dessiner();
+
+function importer() {
+	var data = document.getElementById('dataURL').textContent;
+	document.getElementById('image').src=data;
+}
+
+document.getElementById('redessiner').onclick = dessiner;
+document.getElementById('importer').onclick = importer;
+
+</script>
+
+</body>
+</html>

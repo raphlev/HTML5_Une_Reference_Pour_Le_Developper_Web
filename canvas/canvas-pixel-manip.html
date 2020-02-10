@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="333" height="500" style="border:1px solid #ccc">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<p>
+  <input type="button" value="Rouge à zéro" id="effet1">
+  <input type="button" value="Négatif" id="effet2">
+  <input type="button" value="Noir et blanc" id="effet3">
+</p>
+
+<script>
+  var moncanvas = document.getElementById('dessin');
+  var ctx = moncanvas.getContext('2d');
+  
+  var img = new Image();
+  img.src = 'img/photo.jpg';
+  img.onload = function() {
+    // Dessin de l'image
+    ctx.drawImage(img,0,0);
+  }
+  
+  function traitement(type) {
+    // Récupération de pixel (ne fonctionne si la source est le même domaine pour éviter XSS, et ne fonctionne pas en local non plus)
+    var imageData = ctx.getImageData(0,0,ctx.canvas.width,ctx.canvas.height);
+  
+    // Modification de pixels ?
+    switch(type) {
+      case 1:
+        imageData.data = effet1(imageData.data);
+      break;
+      case 2:
+        imageData.data = effet2(imageData.data);
+      break;
+      case 3:
+        imageData.data = effet3(imageData.data);
+      break;
+      case 4:
+        imageData.data = effet4(imageData.data);
+      break;
+    }
+  
+    // Remplacement dans le canvas destination
+    ctx.putImageData(imageData,0,0);  
+  }
+  
+  // Mise à zéro de la composante rouge
+  function effet1(data) {
+    for(i=0;i<data.length;i+=4) {
+      data[i]=0; // R
+      // data[i+1]; // V
+      // data[i+2]; // B
+      // data[i+3]; // A
+    }
+    return data;    
+  }
+
+  // Négatif
+  function effet2(data) {
+    for(i=0;i<data.length;i+=4) {
+      data[i]=256-data[i]; // R
+      data[i+1]=256-data[i+1]; // V
+      data[i+2]=256-data[i+2]; // B
+      // data[i+3]; // A
+    }
+    return data;
+  }
+
+  // Noir & blanc
+  function effet3(data) {
+    for(i=0;i<data.length;i+=4) {
+      // Calcul de la luminance
+      var gris = data[i]*0.3+data[i+1]*0.59+data[i+2]*0.11;
+      data[i]=gris; // R
+      data[i+1]=gris; // V
+      data[i+2]=gris; // B
+      // data[i+3]; // A
+    }
+    return data;
+  }
+  
+  document.getElementById('effet1').onclick = function(e) {
+    try {
+      traitement(1);
+    } catch(e) {
+      alert("Exception de sécurité "+e.message);
+    }
+  }
+  document.getElementById('effet2').onclick = function(e) {
+    try {
+      traitement(2);
+    } catch(e) {
+      alert("Exception de sécurité "+e.message);
+    }
+  }
+  document.getElementById('effet3').onclick = function(e) {
+    try {
+      traitement(3);
+    } catch(e) {
+      alert("Exception de sécurité "+e.message);
+    }
+  }
+</script>
+
+</body>
+</html>

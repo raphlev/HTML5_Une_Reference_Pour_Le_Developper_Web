@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title>Pointer Lock</title>
+</head>
+<body>
+
+<script>
+document.body.addEventListener('click', function(e) {
+  if (!document.isFullScreen) { // Chrome requires fullscreen to succeed.
+    document.body.webkitRequestFullScreen();
+  } else if (navigator.pointer.isLocked) {
+    navigator.pointer.unlock();
+  } else {
+    document.cancelFullScreen();
+  }
+}, false);
+
+document.addEventListener('fullscreenchange', function(e) {
+  if (document.isFullScreen) {
+    navigator.pointer.lock(document.body, function() {
+      console.log(e.movementX, e.movementY);
+    }, function(e) {
+      console.log('Mouse lock unsuccessful', e);
+    });
+  }
+}, false);
+
+document.body.addEventListener('pointerlocklost', function(e) {
+  console.log("lost");
+}, false);
+</script>
+
+</body>
+</html>

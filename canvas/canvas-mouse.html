@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+body {
+  background:#eee;
+  text-align:center;
+  padding-top:5%;
+}
+.palette span, .pinceaux>span {
+  display:inline-block;
+  width:45px;
+  height:45px;
+  cursor:pointer;
+  border:2px solid transparent;
+  border-radius:4px;
+  line-height: 40px;
+  text-align:center;
+  background:#555;
+}
+.pinceaux span span {
+  background:white;
+  border-radius:50px;
+  display:inline-block;
+  margin:auto;
+  vertical-align:middle;
+}
+.palette span:hover, .pinceaux>span:hover {
+  border-color:white;
+}
+canvas {
+  cursor:crosshair;
+  border:5px solid #666;
+  background:white;
+  border-radius:4px;
+  box-shadow:0px 0px 20px #666;
+  margin:20px 0 20px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="palette">
+  <span onclick="modifierCouleur('#206BA4');" style="background:#206BA4"></span>
+  <span onclick="modifierCouleur('#54A4DE');" style="background:#54A4DE"></span>
+  <span onclick="modifierCouleur('#BBD9EE');" style="background:#BBD9EE"></span>
+  <span onclick="modifierCouleur('#BEDF5D');" style="background:#BEDF5D"></span>
+  <span onclick="modifierCouleur('#D6EB9A');" style="background:#D6EB9A"></span>
+  <span onclick="modifierCouleur('#FF9834');" style="background:#FF9834"></span>
+  <span onclick="modifierCouleur('#FFCC00');" style="background:#FFCC00"></span>
+  <!--<span onclick="modifierCouleur('#F6E896');" style="background:#F6E896"></span>-->
+  <span onclick="modifierCouleur('#b07d42');" style="background:#b07d42"></span>
+  <span onclick="modifierCouleur('#FF5349');" style="background:#FF5349"></span>
+</div>
+<canvas id="dessin" width="480" height="360"></canvas>
+<div class="pinceaux">
+  <span onclick="modifierPinceau(2);"><span style="height:2px;width:2px"></span></span>
+  <span onclick="modifierPinceau(5);"><span style="height:5px;width:5px"></span></span>
+  <span onclick="modifierPinceau(10);"><span style="height:10px;width:10px"></span></span>
+  <span onclick="modifierPinceau(20);"><span style="height:20px;width:20px"></span></span>
+  <span onclick="modifierPinceau(30);"><span style="height:30px;width:30px"></span></span>
+</div>
+
+<script>
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+var en_dessin = false;
+
+ctx.strokeStyle = "black";
+ctx.lineWidth = 3;
+
+// Bouton de souris activé
+moncanvas.onmousedown = function(e) {
+  // Dessin activé
+  en_dessin = true;
+  ctx.beginPath();
+  // Repositionnement du début du tracé
+  ctx.moveTo(e.offsetX,e.offsetY);
+};
+
+// Mouvement de souris
+moncanvas.onmousemove = function(e) {
+  if(en_dessin) dessiner(e.offsetX,e.offsetY);
+};
+
+// Bouton de souris relâché
+moncanvas.onmouseup = function(e) {
+  // Dessin désactivé
+  en_dessin = false;
+  ctx.closePath();
+};
+
+// Ajoute un segment au tracé
+function dessiner(x,y) {
+  ctx.lineTo(x,y);
+  ctx.stroke();
+}
+
+// Modification de la couleur de tracé du contexte
+function modifierCouleur(codeCouleur) {
+  if(codeCouleur) ctx.strokeStyle = codeCouleur;
+}
+
+// Modification de la largeur du trait
+function modifierPinceau(largeur) {
+  if(largeur) ctx.lineWidth = parseInt(largeur);
+}
+
+</script>
+
+</body>
+</html>

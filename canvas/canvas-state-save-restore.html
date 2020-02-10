@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="640" height="480">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+function carre() {
+  ctx.fillRect(0,0,50,50);
+  ctx.strokeRect(0,0,50,50);
+}
+
+// Etat 1 :
+ctx.strokeStyle = "steelblue";
+ctx.lineWidth = 1;
+ctx.fillStyle = "yellowgreen";
+
+ctx.save(); // Etat 1 sauvé
+
+// Etat 2 :
+ctx.translate(60,60);
+ctx.strokeStyle = "#c00";
+ctx.lineWidth = 4;
+ctx.fillStyle = "orange";
+
+carre(); // Carré dessiné dans l'état 2
+
+ctx.save(); // Etat 2 sauvé
+
+// Etat 3 :
+ctx.translate(60,60);
+ctx.strokeStyle = "white";
+ctx.lineWidth = 1;
+ctx.fillStyle = "black";
+
+carre(); // Carré dessiné dans l'état 3
+
+ctx.restore(); // Etat 2 restauré
+
+ctx.restore(); // Etat 1 restauré
+
+carre(); // Carré dessiné dans l'état 1
+
+</script>
+
+</body>
+</html>

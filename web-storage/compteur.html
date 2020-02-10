@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Web-Storage</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<p>
+Vous avez vu cette page 
+<span id="nb_visites">un nombre indéterminé de</span>
+fois.
+</p>
+
+<script>
+if(typeof(localStorage) == "undefined") {
+  alert("Ce navigateur ne supporte pas Web Storage");
+} else {
+  try {
+    if(!localStorage.visites) localStorage.setItem("visites","0");
+    // Incrémentation
+    var nb = "";
+    nb = parseInt(localStorage.getItem("visites"));
+    nb++;
+    localStorage.setItem("visites",nb);
+    document.getElementById("nb_visites").innerHTML = nb;
+  } catch (e) {
+    alert("Quota de stockage atteint");
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Web-Storage</title>
+<meta charset="utf-8">
+
+</head>
+<body>
+
+<h1>Web Storage</h1>
+
+<h2>Stockage à intervalles réguliers</h2>
+ 
+<p>
+  <textarea name="texte" id="texte"></textarea>
+</p>
+
+<script>
+// Champ qui va être concerné
+var champ = document.getElementById("texte");
+
+// Si la valeur de la sauvegarde est présente au chargement
+if(sessionStorage.getItem("sauvegarde").length!=null) {
+  // Alors il suffit de la restaurer
+  champ.value = sessionStorage.getItem("sauvegarde");
+}
+ 
+// Toutes les deux secondes
+setInterval(function(){
+  // Le champ texte est mémorisé dans le stockage de session
+  sessionStorage.setItem("sauvegarde", champ.value);
+}, 2000);
+</script>
+
+</body>
+</html>

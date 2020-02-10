@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Géolocalisation avec carte Google Maps</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<!-- Un élément HTML pour recueillir l’affichage -->
+<div id="maposition"></div>
+
+<!-- Un élément HTML pour recueillir la carte -->
+<div id="map" style="width:640px;height:480px"></div>
+
+<!-- Chargement de l'API Google maps -->
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<script>
+
+if(navigator.geolocation) {
+
+	// Fonction de callback en cas de succès
+	function succesGeo(position) {
+	
+		var infopos = "Position déterminée : <br>";
+		infopos += "Latitude : "+position.coords.latitude +"<br>";
+		infopos += "Longitude: "+position.coords.longitude+"<br>";
+		document.getElementById("maposition").innerHTML = infopos;
+
+		// On instancie un nouvel objet LatLng pour Google Maps
+		var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		
+		// Ansi que des options pour la carte, centrée sur latlng
+		var optionsGmaps = {
+			mapTypeControl: false,
+			center: latlng,
+			navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			zoom: 15
+		};
+		
+		// Initialisation de la carte avec les options
+		var map = new google.maps.Map(document.getElementById("map"), optionsGmaps);
+
+		// Ajout d'un marqueur à la position trouvée
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			title:"Vous êtes ici"
+		});
+
+	}
+
+	// Fonction de callback en cas d’erreur
+	function erreurGeo(error) {
+		var info = "Erreur lors de la géolocalisation : ";
+		switch(error.code) {
+		case error.TIMEOUT:
+			info += "Timeout !";
+		break;
+		case error.PERMISSION_DENIED:
+			info += "Vous n’avez pas donné la permission";
+		break;
+		case error.POSITION_UNAVAILABLE:
+			info += "La position n’a pu être déterminée";
+		break;
+		case error.UNKNOWN_ERROR:
+			info += "Erreur inconnue";
+		break;
+		}
+		document.getElementById("maposition").innerHTML = info;
+	}
+
+	navigator.geolocation.getCurrentPosition(succesGeo,erreurGeo,{maximumAge:120000});
+
+} else {
+
+	alert("Ce navigateur ne supporte pas la géolocalisation");
+
+}
+
+</script>
+
+</body>
+</html>

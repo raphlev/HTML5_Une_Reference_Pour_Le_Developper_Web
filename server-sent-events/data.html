@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : EventSource</title>
+<style>
+p {
+  background:#eee;
+  padding:0.5em;
+  margin:0;
+  font-family:sans-serif;
+  border-top:1px solid #ccc;
+}
+</style>
+</head>
+<body>
+
+<div id="infos"></div>
+
+<script>
+
+var sse = new EventSource("data.php");
+var infos = document.getElementById("infos");
+
+sse.onmessage = function(e) {
+  infos.innerHTML += "<p class=\"message\">data: "+e.data+"</p>";
+};
+
+</script>
+
+</body>
+</html>

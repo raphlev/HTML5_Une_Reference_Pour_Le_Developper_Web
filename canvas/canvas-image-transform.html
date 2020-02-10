@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<canvas id="dessin" width="800" height="600">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+  var moncanvas = document.getElementById('dessin');
+  var ctx = moncanvas.getContext('2d');
+  var img = new Image();
+  img.src = 'img/photo.jpg';
+  img.onload = function() {
+	// Symétrie verticale
+	ctx.scale(1,-1)
+    // Symétrie horizontale
+	ctx.scale(-1,1);
+    // Dessin de l'image
+    ctx.drawImage(img,-333,-500); 
+  }
+</script>
+
+</body>
+</html>

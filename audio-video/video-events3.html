@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Video</title>
+<meta charset="utf-8">
+</head>
+<body>
+
+<video id="mavideo" width="720" height="406" controls>
+  <source src="bunny.mp4" type="video/mp4">
+  <source src="bunny.ogv" type="video/ogg">
+  <source src="bunny.webm" type="video/webm">
+  <p>Télécharger la vidéo <a href="bunny.webm">WebM</a> <a href="bunny.ogv">Ogg</a> <a href="bunny.mp4">MP4</a></p>
+</video>
+
+<p><small>Vidéo : Bande-annonce de <a href="http://www.bigbuckbunny.org">Big Buck Bunny</a> sous licence Creative Commons Attribution 3.0</small></p>
+
+<script>
+var vid1 = document.getElementById('mavideo');
+vid1.addEventListener("play", function() {
+  alert("Lecture !");
+},true);
+vid1.addEventListener("ended", function() {
+  alert("C'est déjà la fin...");
+},true);
+vid1.addEventListener("pause", function() {
+  alert("En pause.");
+},true);
+</script>
+
+</body>
+</html>

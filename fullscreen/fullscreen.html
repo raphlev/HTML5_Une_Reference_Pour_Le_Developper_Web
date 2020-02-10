@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : Plein écran</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+
+<style>
+div:-webkit-full-screen, div:-moz-full-screen {
+	max-height: 100%;
+	border:10px solid red;
+	color:red;
+}
+</style>
+
+</head>
+<body>
+
+<div class="wrap">
+
+  <p><strong>Plein écran</strong></p>
+  <video id="mavideo" src="bunny.mp4" width="720" height="406" controls></video>
+  <input type="button" id="fullscreen_video" value="Plein écran pour la vidéo">
+  <div id="moncontenu">
+  	Contenu
+  	<br>
+  	Test !
+  	<img src="bunny.jpg">
+  </div>
+  <input type="button" id="fullscreen_div" value="Plein écran pour l'élément HTML">
+  <div name="log" id="log"></div>
+</div>
+
+<script>
+document.getElementById('fullscreen_video').onclick = function() {
+  var element = document.getElementById('mavideo');
+  plein_ecran(element);
+};
+
+document.getElementById('fullscreen_div').onclick = function() {
+  var element = document.getElementById('moncontenu');
+  plein_ecran2(element);
+};
+
+function plein_ecran(element) {
+  if(element.requestFullScreen) {
+    element.requestFullScreen();
+  } else if(element.webkitRequestFullScreen) {
+    element.webkitRequestFullScreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else {
+    alert("Ce navigateur ne supporte pas le mode plein-écran");
+  }
+}
+
+// Chrome/Firefox/Safari OK
+// IE/Opera NOK
+
+function plein_ecran2(element) {
+  // Redéfinition de la méthode en fonction des préfixes disponibles
+  element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || false;
+  // Appel effectif
+  if(element.requestFullScreen) element.requestFullScreen();
+}
+
+function sortir_plein_ecran(element) {
+  // Redéfinition de la méthode en fonction des préfixes disponibles
+  element.cancelFullScreen = element.cancelFullScreen || element.webkitCancelFullScreen || element.mozCancelFullScreen || false;
+  // Appel effectif
+  if(element.cancelFullScreen) element.cancelFullScreen();
+  // NE MARCHE PAS CAR EVENT QUE PERMIS SUR CLICK OU TOUCHE
+}
+
+// ALignement pas pareil (centré dans webkit, top left dans moz)
+
+// Sortir du plein écran à la fin de la vidéo ? (ne marche pas car pas onclick)
+document.getElementById('mavideo').addEventListener('ended',function() {
+	sortir_plein_ecran(this);
+},true);
+
+// Ne marche pas ?
+document.getElementById('mavideo').fullscreenchange = 
+document.getElementById('mavideo').webkitfullscreenchange = 
+document.getElementById('mavideo').mozfullscreenchange = function() {
+	document.getElementById('log').innerHTML += 'Changement plein écran<br>';
+};
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas</title>
+<meta charset="utf-8">
+<style>
+canvas, img {
+  border:1px solid #ccc;
+}
+output {
+  word-wrap:break-word;
+  font-family:monospace;
+}
+body {
+  background:#eee;
+}
+</style>
+</head>
+<body>
+
+<canvas id="dessin" width="300" height="300">
+Texte alternatif à destination des navigateurs qui ne supportent pas canvas.
+</canvas>
+
+<script>
+
+var moncanvas = document.getElementById('dessin');
+var ctx = moncanvas.getContext('2d');
+
+ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+
+/*
+ctx.fillStyle = "#eee";
+ctx.fillRect(0,0,200,200);
+*/
+
+ctx.fillStyle = "steelblue";
+ctx.fillRect(10,10,80,80);
+ctx.globalCompositeOperation = "xor";
+
+ctx.fillStyle = "YellowGreen";
+ctx.beginPath();
+ctx.arc(100,100,60,0,Math.PI*2,true);
+ctx.fill();
+
+</script>
+
+</body>
+</html>

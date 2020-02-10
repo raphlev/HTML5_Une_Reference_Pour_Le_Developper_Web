@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Canvas + Video</title>
+<meta charset="utf-8">
+<style>
+canvas {
+  border:1px dashed #ccc;
+}
+video {
+  border:5px solid #0094e9;
+}
+hr {
+  border:0;
+  height:0;
+}
+p {
+  font-family:sans-serif;
+  color:#444;
+  font-size:smaller;
+  margin:0.5em 0 0 0;
+}
+</style>
+</head>
+<body>
+
+<video id="mavideo" width="720" height="406" poster="bunny.jpg" onclick="video.play();">
+  <source src="bunny.mp4" type="video/mp4">
+  <source src="bunny.ogv" type="video/ogg">
+  <source src="bunny.webm" type="video/webm">
+</video>
+
+<hr>
+
+<div style="display:inline-block;">
+  <p>scale(0.5,0.5)</p>
+  <canvas id="dessin1" width="360" height="203"></canvas>
+</div>
+<div style="display:inline-block;">
+  <p>translate(-video.width/4,-video.height/4)</p>
+  <canvas id="dessin2" width="360" height="203"></canvas>
+</div>
+
+<hr>
+
+<input type="button" value="Lecture Video" onclick="video.play();">
+<input type="button" value="Stop Video" onclick="video.pause();">
+<input type="button" value="Stop Canvas" onclick="clearInterval(inter);">
+<input type="button" value="Rotation Canvas 1" onclick="rotation();">
+
+<script>
+var moncanvas1 = document.getElementById('dessin1');
+var ctx1 = moncanvas1.getContext('2d');
+
+var moncanvas2 = document.getElementById('dessin2');
+var ctx2 = moncanvas2.getContext('2d');
+
+var video = document.getElementById('mavideo');
+
+// Propriétés générales
+ctx1.scale(0.5,0.5);
+ctx2.translate(-video.width/4,-video.height/4);
+
+// Un intervalle de temps régulier
+if(video) var inter = setInterval(dessinVideo, 40);
+ 
+function dessinVideo() {
+  if(!isNaN(video.duration)) {
+    // Dessin de la vidéo dans les deux contextes
+    ctx1.drawImage(video, 0, 0);
+    ctx2.drawImage(video, 0, 0, video.width, video.height);
+  }
+}
+
+function rotation() {
+	ctx1.clearRect(-200,-200,1400,1400);
+	ctx1.rotate(0.1);
+}
+
+</script>
+
+</body>
+</html>

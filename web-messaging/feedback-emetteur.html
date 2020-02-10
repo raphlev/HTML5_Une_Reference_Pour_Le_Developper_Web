@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>HTML5 : Web Messaging</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+<div class="wrap">
+
+<p>Je suis sur www.domaine1.com</p>
+
+<form id="envoi">
+  <p><textarea id="message"></textarea></p>
+  <p><input type="submit" value="Envoyer"></p>
+</form>
+
+<iframe src="http://www.domaine2.com/web-messaging/feedback-destinataire.html" id="iframe"></iframe>
+
+<p id="retour"></p>
+
+</div>
+
+<script>
+
+var destination = document.getElementById('iframe').contentWindow;
+
+document.getElementById('envoi').onsubmit = function(e) {
+  var texte = document.getElementById('message').value;
+  destination.postMessage(texte,"http://www.domaine2.com");
+  document.getElementById('retour').textContent = '';
+  e.preventDefault();
+};
+
+// Réception des messages en retour
+if (typeof window.addEventListener != 'undefined') {  
+  window.addEventListener('message', reception, false);  
+} else if (typeof window.attachEvent != 'undefined') {  
+  window.attachEvent('onmessage', reception);  
+}
+
+function reception(e) {
+  if(e.origin!=='http://www.domaine2.com') {
+    alert("Mauvaise origine");
+  } else {
+    if(e.data=='OK') {
+      document.getElementById('retour').textContent = 'Message reçu';
+    } else {
+      document.getElementById('retour').textContent = 'Erreur'; 
+    }
+  }
+}
+
+</script>
+
+</body>
+</html>

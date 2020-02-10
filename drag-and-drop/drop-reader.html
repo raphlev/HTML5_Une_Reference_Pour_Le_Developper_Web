@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>HTML5 : Drag and Drop !</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<style>
+#drop {
+  height: 200px;
+  width: 90%;
+  border: 3px dashed #bbb;
+  padding: 1em;
+  margin-bottom:1em;
+}
+#drop:hover {
+  background:#cf9;
+}
+.deposezmoi {
+  background:#b5e766;
+  border: 3px dashed #79a633;
+}
+.wrap img {
+  max-width:100%;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p><strong>Déposer des images...</strong></p>
+  <div id="drop" dropzone="copy f:image/jpeg f:image/png f:image/gif" ondrop="depot(event);"></div>
+  
+</div>
+
+<script>
+
+// Identifiant de l’élément de réception
+var dropzone = document.getElementById('drop');
+
+// Fonction entrée survol de la cible
+function entree(event) {
+  event.target.className = 'deposezmoi';
+  event.preventDefault();
+}
+
+// Fonction sortie survol de la cible
+function sortie(event) {
+  event.target.className = '';
+}
+
+// Fonction d’annulation du comportement par défaut
+function survol(event) {
+  event.dataTransfer.dropEffect="copy";
+  event.preventDefault();
+  return false;
+}
+
+// Redéfinition des événements
+if(window.addEventListener) {
+  dropzone.addEventListener('dragover',survol);
+  dropzone.addEventListener('dragenter',entree);
+  dropzone.addEventListener('dragleave',sortie);
+} else {
+  dropzone.attachEvent('dragover',survol);
+  dropzone.attachEvent('dragenter',entree);
+  dropzone.attachEvent('dragleave',sortie);
+}
+
+// Traitement du dépôt
+function depot(e) {
+  e.preventDefault();
+  var fichiers = e.dataTransfer.files;
+  for(var i=0; i<fichiers.length; i+=1) {
+    var f = fichiers[i];
+    e.target.innerHTML += "<p>Nom : "+f.name+"<br>";
+    e.target.innerHTML += "Taille : "+f.size+" octets<br>";
+    e.target.innerHTML += "Type : "+f.type+"</p>";
+
+    // Si le type correspond à une image
+    if(f.type.match('image.*')) {
+
+      if (typeof window.FileReader !== 'undefined') {
+        reader = new FileReader();
+        reader.onload = function (event) {
+          // Ajout en tant que background
+          dropzone.style.background = 'url(' + event.target.result + ') no-repeat center';
+          // Ajout en tant qu'image
+          var img = document.createElement('img');
+          img.src = event.target.result;
+          // Ajout dans le dom
+          dropzone.parentNode.insertBefore(img,dropzone.nextSibling);
+        };
+
+        // Lancement de FileReader pour le fichier
+        reader.readAsDataURL(f);
+
+      } else alert("FileReader non supporté");
+  
+    }
+
+    return false;
+  }
+}
+
+</script>
+
+</body>
+</html>
